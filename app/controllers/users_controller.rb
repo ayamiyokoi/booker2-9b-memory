@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     @book = Book.new
   end
 
+  def search
+    @user = User.find(params[:user_id])
+    @books_search = Book.where(:created_at => params[:date], :user_id => @user.id)
+  end
+
   def index
     @users = User.all
     @book = Book.new
