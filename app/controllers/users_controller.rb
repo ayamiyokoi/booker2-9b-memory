@@ -9,7 +9,14 @@ class UsersController < ApplicationController
 
   def search
     @user = User.find(params[:user_id])
-    @books_search = Book.where(:created_at => params[:date], :user_id => @user.id)
+    @books = @user.books
+    @book = Book.new
+    if params[:created_at] == ""
+      @books_search = "日付を選択してください"
+    else
+      create_at = params[:created_at]
+      @books_search = @books.where(['created_at LIKE ? ', "#{create_at}%"])
+    end
   end
 
   def index

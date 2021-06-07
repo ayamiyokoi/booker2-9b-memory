@@ -10,15 +10,15 @@
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
       <!--検索機能-->
-      <%= form_tag(user_search_path,:method => 'get') do %>
-        <%= text_field_tag :date %>
-        <%= submit_tag '検索' %>
+      <%= form_with url: user_search_path(@user), method: :get do |f| %>
+      <%= f.date_field :created_at %>
+       <%= f.submit '検索', class: 'btn btn-primary'  %>
       <% end %>
-      <h3>検索結果</h3>
-      <table>
-        <th>投稿数</th>
-        <td></td>
-      </table>
+
+       <div id="search_result">
+       <% if @books_search.present? %>
+       <%= render 'search', books_search: @books_search %>
+       <% end %>
     </div>
   </div>
 </div>
